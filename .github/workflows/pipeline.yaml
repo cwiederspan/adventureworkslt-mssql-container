@@ -1,0 +1,21 @@
+name: Build Container
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@master
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Docker Build and Push
+      run: |
+        docker build . -t cwiederspan/adventureworkslt:${{ github.sha }} -t cwiederspan/adventureworkslt:latest
+        docker push cwiederspan/adventureworkslt:${{ github.sha }}
+        docker push cwiederspan/adventureworkslt:latest
