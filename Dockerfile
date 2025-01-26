@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/mssql/server:2022-latest
 
+# Set the necessary environment variables
+ENV ACCEPT_EULA=Y
+
 # Run as root
 USER root
 
